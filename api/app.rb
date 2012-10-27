@@ -8,6 +8,16 @@ $products = [
   { id: 3, name: "Product Three", desc: "a description of product three", country: "brazil", price: 200 }
 ]
 
+get "/products/?" do
+  @product = []
+  #Here I am expecting price and country in params
+  $products.each do |p|
+    @product << p if p[:price] == params[:price] and p[:country] == params[:country]
+  end
+  @product = "not found" if @product.nil?
+  json product: @product
+end
+
 get "/products.json" do
   json products: $products 
 end
